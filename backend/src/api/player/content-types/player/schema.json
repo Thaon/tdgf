@@ -28,6 +28,12 @@
       "type": "component",
       "repeatable": true,
       "component": "unit.unit"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game.game",
+      "inversedBy": "players"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "location",
     "pluralName": "locations",
-    "displayName": "location"
+    "displayName": "location",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -23,6 +24,12 @@
       "relation": "manyToOne",
       "target": "api::player.player",
       "inversedBy": "locationsOwned"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game.game",
+      "inversedBy": "locations"
     }
   }
 }
