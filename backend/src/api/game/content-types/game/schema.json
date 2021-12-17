@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "games",
+  "info": {
+    "singularName": "game",
+    "pluralName": "games",
+    "displayName": "game"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "gameCode": {
+      "type": "string"
+    },
+    "locationsAmount": {
+      "type": "integer",
+      "min": 1,
+      "default": 1
+    },
+    "started": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "players",
+  "info": {
+    "singularName": "player",
+    "pluralName": "players",
+    "displayName": "player",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "resources": {
+      "type": "biginteger"
+    },
+    "locationsOwned": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::location.location",
+      "mappedBy": "owner"
+    },
+    "unitsOwned": {
+      "type": "component",
+      "repeatable": true,
+      "component": "unit.unit"
+    }
+  }
+}

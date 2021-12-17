@@ -21,10 +21,8 @@ namespace MADD
     {
         public int id;
         public int index;
-        public int owner;
-        public bool buildingUnit; //this will be true if a unit is being built at the moment
-
-        private Player playerOwner;
+        public Player owner;
+        public bool isBuildingUnit; //this will be true if a unit is being built at the moment
     }
 
     [System.Serializable]
@@ -41,10 +39,17 @@ namespace MADD
     [System.Serializable]
     public class Unit
     {
+        public string id;
+        public UnitType unitType;
+    }
+
+    [System.Serializable]
+    public class UnitType
+    {
         public int id;
         public string name;
 
-        public int targetLocation; //where is this unit headed at the moment (or where it is)
+        public Location targetLocation; //where is this unit headed at the moment (or where it is)
 
         //building related stats
         public int buildTime;
@@ -57,5 +62,6 @@ namespace MADD
         //combat related stats
         public int power;
         public int health;
+        public int attackTime;
     }
 }

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_unit_units",
+  "info": {
+    "displayName": "unit",
+    "icon": "child"
+  },
+  "options": {},
+  "attributes": {
+    "unitType": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::unity-type.unity-type"
+    },
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    }
+  }
+}

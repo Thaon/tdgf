@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "unity_types",
+  "info": {
+    "singularName": "unity-type",
+    "pluralName": "unity-types",
+    "displayName": "unit-type",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "buildTime": {
+      "type": "biginteger",
+      "min": "0"
+    },
+    "cost": {
+      "type": "biginteger"
+    },
+    "range": {
+      "type": "biginteger"
+    },
+    "speed": {
+      "type": "biginteger"
+    },
+    "power": {
+      "type": "biginteger"
+    },
+    "health": {
+      "type": "biginteger"
+    },
+    "targetLocation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    },
+    "attackTime": {
+      "type": "integer"
+    }
+  }
+}
