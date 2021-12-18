@@ -11,6 +11,7 @@ namespace MADD
         public string gameCode; //the code that can be used to join the game if not started
         public bool started; //if all players agreed, the game started
         public int locationsAmount; //how many locations are in the game
+        public int startingResources; //how many resources will new players have when joining the game
         public List<Location> locations; //the actual locations on the backend
         public List<Player> players; //the players that are currently joined in the game
 
@@ -31,9 +32,8 @@ namespace MADD
         public int id;
         public string name;
         public int resources; //used to build units
-
-        private List<Location> locationsOwned;
-        private List<Unit> unitsOwned;
+        public List<Location> locationsOwned;
+        public List<Unit> unitsOwned;
     }
 
     [System.Serializable]

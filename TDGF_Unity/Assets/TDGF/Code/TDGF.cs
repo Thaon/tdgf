@@ -9,13 +9,21 @@ namespace MADD
     {
         #region member variables
 
+        [Header("Server settings")]
+        public string URL = "http://localhost:1337/api";
+        [Header("Account settings")]
+        public string _email;
+        public string _password;
+        [Header("Game creation settings")]
+        public string _gameCode;
+        public int _startingResources;
+        public int _startingLocations;
+        [Header("Game joining settings")]
+        public string _playerName = "Guest";
         [ReadOnly]
         public List<Game> _myGames;
         [ReadOnly]
         public Game _game;
-        public string URL = "http://localhost:1337/api";
-        public string _email;
-        public string _password;
 
         [SerializeField]
         private string _token;
@@ -104,10 +112,16 @@ namespace MADD
                 StartCoroutine(GetAllMyGamesCO());
         }
 
-        public void CreateGame(int locationsToGenerate)
+        public void CreateGame()
         {
             if (!_loading)
-                StartCoroutine(CreateGameCO(locationsToGenerate));
+                StartCoroutine(CreateGameCO(_startingLocations));
+        }
+
+        public void JoinGame()
+        {
+            if (!_loading)
+                StartCoroutine(JoinGameCO(_gameCode, _startingResources, _playerName));
         }
 
         public IEnumerator GetAllMyGamesCO()
@@ -161,6 +175,45 @@ namespace MADD
             _loading = false;
             if (http.IsSuccessful())
             {
+                Response resp = http.Response();
+                _game = resp.To<Game>();
+            }
+            else
+            {
+                Debug.LogWarning("error: " + http.Error());
+            }
+        }
+
+        public class JoinGameData
+        {
+            public int startingResources;
+            public string name;
+        }
+
+        public IEnumerator JoinGameCO(string gameCode, int startingResources, string playerName)
+        {
+            if (_token.Length == 0)
+            {
+                Debug.LogWarning("You need to login in order to join a game");
+                yield break;
+            }
+
+            JoinGameData data = new JoinGameData();
+            data.startingResources = startingResources;
+            data.name = playerName;
+
+            _loading = true;
+            Request request = new Request(URL + "/games/join/" + gameCode)
+                .AddHeader("Authorization", "Bearer " + _token)
+                .Post(RequestBody.From(data));
+
+            Client http = new Client();
+            yield return http.Send(request);
+
+            _loading = false;
+            if (http.IsSuccessful())
+            {
+                print("Game joined");
                 Response resp = http.Response();
                 _game = resp.To<Game>();
             }

@@ -19,8 +19,6 @@ module.exports = createCoreController("api::game.game", ({ strapi }) => ({
       },
     });
 
-    console.log(games);
-
     return games;
   },
   async create(ctx) {
@@ -56,5 +54,50 @@ module.exports = createCoreController("api::game.game", ({ strapi }) => ({
     }
 
     return newGame;
+  },
+  async join(ctx) {
+    //only devs can create games
+    const user = ctx.state.user;
+    const id = ctx.params.id;
+
+    //fetch game
+    let game = await strapi.entityService.findMany("api::game.game", {
+      filters: { gameCode: id },
+      populate: {
+        players: true,
+      },
+    });
+
+    game = game[0];
+
+    if (game == null)
+      return ctx.badRequest(null, "Could not find game with the provided ID");
+
+    //check if player is already in game
+    let player = game.players.find((player) => player.user.id == user.id);
+    if (player != null) return game;
+
+    //update players
+    await strapi.entityService.create("api::player.player", {
+      data: {
+        user: user.id,
+        game: game.id,
+        name: ctx.request.body.name,
+        resources: game.startingResources,
+        locationsOwned: [],
+        unitsOwned: [],
+      },
+    });
+
+    game = await strapi.entityService.findMany("api::game.game", {
+      filters: { gameCode: id },
+      populate: {
+        players: true,
+      },
+    });
+
+    game = game[0];
+
+    return game;
   },
 }));

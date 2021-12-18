@@ -34,6 +34,12 @@
       "relation": "manyToOne",
       "target": "api::game.game",
       "inversedBy": "players"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "players"
     }
   }
 }

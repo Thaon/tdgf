@@ -68,6 +68,12 @@
       "relation": "oneToMany",
       "target": "api::game.game",
       "mappedBy": "owner"
+    },
+    "players": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::player.player",
+      "mappedBy": "user"
     }
   }
 }

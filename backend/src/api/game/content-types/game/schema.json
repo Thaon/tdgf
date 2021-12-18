@@ -41,6 +41,9 @@
       "relation": "oneToMany",
       "target": "api::location.location",
       "mappedBy": "game"
+    },
+    "startingResources": {
+      "type": "biginteger"
     }
   }
 }

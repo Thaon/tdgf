@@ -18,5 +18,10 @@ module.exports = {
       path: "/games",
       handler: "game.create",
     },
+    {
+      method: "POST",
+      path: "/games/join/:id",
+      handler: "game.join",
+    },
   ],
 };
